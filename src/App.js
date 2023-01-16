@@ -32,13 +32,14 @@ const DUMMY_EXPENSES = [
     id: "e5",
     title: "New Chair (Wooden)",
     amount: 235,
-    date: new Date(2023, 01, 12),
+    date: new Date(2023, 1, 12),
   },
 
 
 ];
 
 const App = () => {
+  console.log("Starting up...");
   const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
   const addExpenseHandler = (expense) => {
     // setExpenses([expense, ...expenses]);
