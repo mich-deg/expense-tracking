@@ -10,19 +10,22 @@ jobs:
  build:
   strategy:
     matrix:
-      platform: [ubuntu-latest, macos-latest, windows-latest]
-      version: [14, 16, 18]
-      exclude:
-        - platform: ubuntu-latest
-          version: 18 
-  runs-on: ${{ matrix.platform }}
+      os: [ubuntu-latest, windows-latest]
+      version: [12, 14, 16]
+      include:
+        - os: windows-latest
+          version: 16
+          npm: 6
+  runs-on: ${{ matrix.os }}
   steps:
     - name: Checkout code
       uses: actions/checkout@v3
     - name: Using NodeJS ${{ matrix.version }}
       uses: actions/setup-node@v3
       with:
-        node-version: "${{ matrix.version }}"
+        node-version: ${{ matrix.version }}
+    - if: ${{ matrix.npm }}
+      run: npm install -g npm@${{ matrix.npm }}
     - name: Install dependencies
       run: npm ci
     - name: Build project
