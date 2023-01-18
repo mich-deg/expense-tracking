@@ -12,6 +12,9 @@ jobs:
     matrix:
       platform: [ubuntu-latest, macos-latest, windows-latest]
       version: [14, 16, 18]
+      exclude:
+        - platform: ubuntu-latest
+          version: 18 
   runs-on: ${{ matrix.platform }}
   steps:
     - name: Checkout code
@@ -19,7 +22,7 @@ jobs:
     - name: Using NodeJS ${{ matrix.version }}
       uses: actions/setup-node@v3
       with:
-        node-version: ${{ matrix.version }}
+        node-version: "${{ matrix.version }}"
     - name: Install dependencies
       run: npm ci
     - name: Build project
